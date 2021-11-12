@@ -4,6 +4,7 @@ import br.com.zup.GerenciamentoDeContas.conta.dtos.CadastrarDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.ResumoDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.SaidaCadastroDTO;
 import br.com.zup.GerenciamentoDeContas.conta.enuns.Status;
+import br.com.zup.GerenciamentoDeContas.conta.enuns.Tipo;
 import br.com.zup.GerenciamentoDeContas.conta.exception.StatusErradoParaAtualizarContaException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,10 @@ public class ContaController {
     }
 
     @GetMapping
-    public List<ResumoDTO> exibirListaDeContas(@RequestParam(required = false) Status status){
+    public List<ResumoDTO> exibirListaDeContas(@RequestParam(required = false) Status status,
+                                               @RequestParam(required = false) Tipo tipo){
         List<ResumoDTO> resumoDTOS = new ArrayList<>();
-        List<Conta> contas = contaService.exibitListaDeContas(status);
+        List<Conta> contas = contaService.exibitListaDeContas(status, tipo);
         for (Conta conta : contas){
             ResumoDTO resumo = modelMapper.map(conta, ResumoDTO.class);
             resumoDTOS.add(resumo);
