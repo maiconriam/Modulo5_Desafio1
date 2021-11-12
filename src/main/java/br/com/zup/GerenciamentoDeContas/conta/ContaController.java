@@ -4,6 +4,7 @@ import br.com.zup.GerenciamentoDeContas.conta.dtos.CadastrarDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.ResumoDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.SaidaCadastroDTO;
 import br.com.zup.GerenciamentoDeContas.conta.enuns.Status;
+import br.com.zup.GerenciamentoDeContas.conta.exception.StatusErradoParaAtualizarContaException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,6 @@ public class ContaController {
         if(atualizarContaDTO.getStatus() == Status.PAGO){
             return modelMapper.map(contaService.atualizarPagamentoDeConta(id), SaidaCadastroDTO.class);
         }
-        throw new RuntimeException("Status invalido");
+        throw new StatusErradoParaAtualizarContaException("Status invalido");
     }
 }
