@@ -1,6 +1,8 @@
 package br.com.zup.GerenciamentoDeContas.conta;
 
 import br.com.zup.GerenciamentoDeContas.conta.enuns.Status;
+import br.com.zup.GerenciamentoDeContas.conta.exception.ContaJaPagaException;
+import br.com.zup.GerenciamentoDeContas.conta.exception.ContaNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class ContaService {
     public Conta procurarId(int id) {
         Optional<Conta> conta = contaRepository.findById(id);
         if (conta.isEmpty()) {
-            throw new RuntimeException("Conta Não encontrado");
+            throw new ContaNaoEncontradaException("Conta Não encontrada");
         }
         return conta.get();
     }
@@ -45,7 +47,7 @@ public class ContaService {
             conta.setDataDePagamento(LocalDateTime.now());
             contaRepository.save(conta);
         } else {
-            throw new RuntimeException("Conta ja paga");
+            throw new ContaJaPagaException("Conta ja paga");
         }
 
         return conta;
