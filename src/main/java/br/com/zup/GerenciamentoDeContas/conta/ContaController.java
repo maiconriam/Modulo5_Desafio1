@@ -32,9 +32,9 @@ public class ContaController {
     }
 
     @GetMapping
-    public List<ResumoDTO> exibirListaDeContas(){
+    public List<ResumoDTO> exibirListaDeContas(@RequestParam(required = false) Status status){
         List<ResumoDTO> resumoDTOS = new ArrayList<>();
-        List<Conta> contas = contaService.exibitListaDeContas();
+        List<Conta> contas = contaService.exibitListaDeContas(status);
         for (Conta conta : contas){
             ResumoDTO resumo = modelMapper.map(conta, ResumoDTO.class);
             resumoDTOS.add(resumo);
