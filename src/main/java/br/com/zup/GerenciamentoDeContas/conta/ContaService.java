@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContaService {
@@ -28,5 +29,12 @@ public class ContaService {
         return (List<Conta>) contas;
     }
 
+    public Conta procurarId(int id) {
+        Optional<Conta> conta = contaRepository.findById(id);
+        if (conta.isEmpty()) {
+            throw new RuntimeException("Conta Não encontrado");
+        }
+        return conta.get();
+    }
 }
 
