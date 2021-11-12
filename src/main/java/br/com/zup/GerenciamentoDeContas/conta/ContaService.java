@@ -1,6 +1,7 @@
 package br.com.zup.GerenciamentoDeContas.conta;
 
 import br.com.zup.GerenciamentoDeContas.conta.enuns.Status;
+import br.com.zup.GerenciamentoDeContas.conta.enuns.Tipo;
 import br.com.zup.GerenciamentoDeContas.conta.exception.ContaJaPagaException;
 import br.com.zup.GerenciamentoDeContas.conta.exception.ContaNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,12 @@ public class ContaService {
         return contaRepository.save(conta);
     }
 
-    public List<Conta> exibitListaDeContas(Status status){
+    public List<Conta> exibitListaDeContas(Status status, Tipo tipo){
         if(status != null){
             return contaRepository.findAllByStatus(status);
+        }
+        if(tipo != null){
+            return contaRepository.findAllByTipo(tipo);
         }
         Iterable<Conta> contas = contaRepository.findAll();
         return (List<Conta>) contas;
