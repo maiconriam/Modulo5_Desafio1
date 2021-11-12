@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,19 @@ public class ContaService {
         }
         return conta.get();
     }
+
+    public Conta atualizarPagamentoDeConta(int id) {
+        Conta conta = procurarId(id);
+        if (conta.getStatus() != Status.PAGO) {
+            conta.setStatus(Status.PAGO);
+            conta.setDataDePagamento(LocalDateTime.now());
+            contaRepository.save(conta);
+        } else {
+            throw new RuntimeException("Conta ja paga");
+        }
+
+        return conta;
+    }
+
 }
 
