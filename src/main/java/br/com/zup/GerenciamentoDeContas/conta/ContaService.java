@@ -12,6 +12,15 @@ public class ContaService {
     @Autowired
     private ContaRepository contaRepository;
 
+    public Conta cadastrarConta(Conta conta) {
+        LocalDate dataAtual = LocalDate.now();
+        if (conta.getDataDeVencimento().isBefore(dataAtual)) {
+            conta.setStatus(Status.VENCIDA);
+        } else {
+            conta.setStatus(Status.AGUARDANDO);
+        }
+        return contaRepository.save(conta);
+    }
 
 }
 
