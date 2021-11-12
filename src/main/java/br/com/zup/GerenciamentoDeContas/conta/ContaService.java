@@ -27,7 +27,10 @@ public class ContaService {
         return contaRepository.save(conta);
     }
 
-    public List<Conta> exibitListaDeContas(){
+    public List<Conta> exibitListaDeContas(Status status){
+        if(status != null){
+            return contaRepository.findAllByStatus(status);
+        }
         Iterable<Conta> contas = contaRepository.findAll();
         return (List<Conta>) contas;
     }
