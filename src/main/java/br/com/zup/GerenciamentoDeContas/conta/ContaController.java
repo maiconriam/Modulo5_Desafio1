@@ -42,6 +42,11 @@ public class ContaController {
         return resumoDTOS;
     }
 
+    @GetMapping("/{id}")
+    public SaidaCadastroDTO exibirListaDeContaPeloId(@PathVariable int id){
+        return modelMapper.map(contaService.procurarId(id), SaidaCadastroDTO.class);
+    }
+
     @PutMapping("/{id}")
     public SaidaCadastroDTO atualizarContaDTO(@PathVariable int id, @RequestBody SaidaCadastroDTO atualizarContaDTO){
         if(atualizarContaDTO.getStatus() == Status.PAGO){
