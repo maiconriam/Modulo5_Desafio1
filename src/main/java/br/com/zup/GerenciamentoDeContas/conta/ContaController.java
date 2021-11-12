@@ -3,6 +3,7 @@ package br.com.zup.GerenciamentoDeContas.conta;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.CadastrarDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.ResumoDTO;
 import br.com.zup.GerenciamentoDeContas.conta.dtos.SaidaCadastroDTO;
+import br.com.zup.GerenciamentoDeContas.conta.enuns.Status;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,5 +39,13 @@ public class ContaController {
             resumoDTOS.add(resumo);
         }
         return resumoDTOS;
+    }
+
+    @PutMapping("/{id}")
+    public SaidaCadastroDTO atualizarContaDTO(@PathVariable int id, @RequestBody SaidaCadastroDTO atualizarContaDTO){
+        if(atualizarContaDTO.getStatus() == Status.PAGO){
+            return modelMapper.map(contaService.atualizarPagamentoDeConta(id), SaidaCadastroDTO.class);
+        }
+        throw new RuntimeException("Status invalido");
     }
 }
