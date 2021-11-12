@@ -57,4 +57,11 @@ public class ContaController {
         }
         throw new StatusErradoParaAtualizarContaException("Status invalido");
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarContaPeloId(@PathVariable int id){
+        contaService.deletarConta(id);
+    }
+
 }
